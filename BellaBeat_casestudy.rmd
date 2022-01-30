@@ -4,7 +4,7 @@ author: "Minty Vo"
 date: "29/01/2022"
 output: html_document
 ---
-Welcome to my Bellabeat data analysis case study
+*Welcome to my Bellabeat data analysis case study*
 
 ## About the company Bellabeat 
 Bellabeat, is a high-tech manufacturer of health-focused products for women. Bellabeat is a successful small company, and they have the potential to become a larger player in the global smart device market. Urška Sršen and Sando Mur founded Bellabeat, a high-tech company that manufactures health-focused smart products. Collecting data on activity, sleep, stress, and reproductive health has allowed Bellabeat to empower women with knowledge about their own health and habits. Since it was founded in 2013, Bellabeat has grown rapidly and quickly positioned itself as a tech-driven wellness company for women. 
@@ -90,4 +90,73 @@ library(here)
 library(skimr)
 library(janitor)
 library(sqldf)
+```
+
+Now I import all the dataset on RStudio and  use head(), colnames(), str() to quickly review the data 
+
+```{r}
+setwd("/Users/minty/Developer/Data_analysis_project")
+daily_activity <- read_csv("dailyActivity_merged.csv")
+
+head(daily_activity)
+
+colnames(daily_activity)
+
+str(daily_activity)
+
+
+daily_calories <- read_csv("dailyCalories_merged.csv")
+
+head(daily_calories)
+
+colnames(daily_calories)
+
+
+daily_intensities <- read_csv("dailyIntensities_merged.csv")
+
+head(daily_intensities)
+
+colnames(daily_intensities)
+
+
+hourly_intensities <- read_csv("hourlyIntensities_merged.csv")
+
+head(hourly_intensities)
+
+colnames(hourly_intensities)
+
+
+daily_steps <- read_csv("dailySteps_merged.csv")
+
+head(daily_steps)
+
+colnames(daily_steps)
+
+
+heart_rate_sec <- read_csv("heartrate_seconds_merged.csv")
+
+head(heart_rate_sec)
+
+colnames(heart_rate_sec)
+
+
+minute_METs <- read_csv("minuteMETsNarrow_merged.csv")
+
+head(minute_METs)
+
+colnames(minute_METs)
+
+
+sleep_day <- read.csv("sleepDay_merged.csv")
+
+head(sleep_day)
+
+colnames(sleep_day)
+
+
+weight_log <- read_csv("weightLogInfo_merged.csv")
+
+head(weight_log)
+
+colnames(weight_log)
 ```
