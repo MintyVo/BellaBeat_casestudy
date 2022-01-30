@@ -521,6 +521,25 @@ head(sleep_day)</code></pre>
 <pre class="r"><code>colnames(weight_log)</code></pre>
 <pre><code>## [1] &quot;Id&quot;             &quot;Date&quot;           &quot;WeightKg&quot;       &quot;WeightPounds&quot;  
 ## [5] &quot;Fat&quot;            &quot;BMI&quot;            &quot;IsManualReport&quot; &quot;LogId&quot;</code></pre>
+<p>I’m going to Process, Clean and Organize the dataset for analysis. I spotted some problems with the timestamp data. So before analysis, I need to convert it to date time format and split to date and time.</p>
+<pre class="r"><code>daily_activity$ActivityDate=as.POSIXct(daily_activity$ActivityDate, format=&quot;%m/%d/%Y&quot;, tz=Sys.timezone())
+daily_activity$date &lt;- format(daily_activity$ActivityDate, format = &quot;%m/%d/%y&quot;)
+
+sleep_day$SleepDay=as.POSIXct(sleep_day$SleepDay, format=&quot;%m/%d/%Y %I:%M:%S %p&quot;, tz=Sys.timezone())
+sleep_day$date &lt;- format(sleep_day$SleepDay, format = &quot;%m/%d/%y&quot;)
+sleep_day$month &lt;- format(sleep_day$SleepDay, format = &quot;%B&quot;)
+
+heart_rate_sec$Time=as.POSIXct(heart_rate_sec$Time, format=&quot;%m/%d/%Y %I:%M:%S %p&quot;, tz=Sys.timezone())
+heart_rate_sec$date &lt;- format(heart_rate_sec$Time, format = &quot;%m/%d/%y&quot;)
+heart_rate_sec$time &lt;- format(heart_rate_sec$Time, format = &quot;%H:M%:S%&quot;)
+
+weight_log$Date=as.POSIXct(weight_log$Date, format=&quot;%m/%d/%Y %I:%M:%S %p&quot;, tz=Sys.timezone())
+weight_log$date &lt;- format(weight_log$Date, format = &quot;%m/%d/%y&quot;)
+weight_log$time &lt;- format(weight_log$Date, format = &quot;%H:%M:%S&quot;)
+
+hourly_intensities$ActivityHour=as.POSIXct(hourly_intensities$ActivityHour, format=&quot;%m/%d/%Y %I:%M:%S %p&quot;, tz=Sys.timezone())
+hourly_intensities$time &lt;- format(hourly_intensities$ActivityHour, format = &quot;%H:%M:%S&quot;)
+hourly_intensities$date &lt;- format(hourly_intensities$ActivityHour, format = &quot;%m/%d/%y&quot;)</code></pre>
 </div>
 
 
