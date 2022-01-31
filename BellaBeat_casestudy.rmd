@@ -347,13 +347,100 @@ pie_pbh <- pct_bmi_health %>%
   labs(title="Weight type distribution")
   plot(pie_pbh)
 ```
+
 This pie chart shows us that half of the participants were overweight. 
-```{r}
 
-```
-```{r}
+## Act
 
-```
-```{r}
+Bellabeat has been successful since its foundation by empowering women though providing data on their activity, sleep, stress, hydration levels, and reproductive health. Based on analyzing how Fitbit consumers use and respond to features, recommendations can be made to promote further growth for Bellabeat.
 
-```
+The Bellabeat app should be completely transformed and revamped. Rather than simply providing data on user’s health, the app should further encourage users to meet fitness goals and become a social media platform.
+
+The CDC recommends working out with a friend in order to feel more motivated, be more adventurous in trying workouts, and to become consistent. The CDC even recommends the use of a social media workout app to connect with friends and reach your goals. The Bellabeat app could become that social media workout app that women turn to, by creating a sisterhood of supportive women ready to prioritize their health.
+
+**Recommendations for Bellabeat app:**
+
+1. Enable social networking so users can post their favorite workouts, wellness tips, healthy meals, etc.
+
+2. Enable users to add friends and view each other’s activity.
+
+3. Create weekly fitness and wellness challenges to encourage use.
+
+4. Have health and fitness companies pay for advertising.
+
+5. Recommend users to get 10,000 steps a day and enable alert notifications to encourage users to meet goal.
+
+6. Recommend users to get at least 7 hours of sleep a night and enable alert notifications to encourage users to meet this.
+
+7. Recommend users get 75 minutes of vigorous activity a week and enable alert notifications to entourage users to meet this.
+
+8. Encourage users to enter in weight and height to track BMI.
+
+9. If users are interested in losing weight, enable notifications to keep users on track to burn necessary calories to meet goal.
+
+10. Enable alert notifications if user’s resting heart rate varies significantly from their normal.
+
+11. Enable notifications to encourage activity if a user has spent an hour in bed awake.
+
+12. Enable notifications to encourage activity if a user has been sedentary for an extended period of time.
+
+**Recommendations for Bellabeat membership:**
+
+1. Offer 30-day free trial subscription.
+
+2. Offer reduced subscription fee when a member refers a friend.
+
+3. Offer discounts for Bellabeat smart device products with membership.
+
+4. Partner with health & fitness companies and offer discounts for members.
+
+**Recommendations for Bellabeat products:**
+
+1. Heavily market Spring as Fitbit does not track hydration levels.
+
+2. Offer a bundle deal for the Spring and Leaf together.
+
+*Works Cited:*
+
+“3 Reasons to Work out with a Friend.” Centers for Disease Control and Prevention, Centers for Disease Control and Prevention, 23 Apr. 2021,
+
+https://www.cdc.gov/diabetes/library/spotlights/workout-buddy.html
+
+“About Adult Bmi.” Centers for Disease Control and Prevention, Centers for Disease Control and Prevention, 17 Sept. 2020,
+
+https://www.cdc.gov/healthyweight/assessing/bmi/adult_bmi/index.html
+
+“CDC — How Much Sleep Do I Need? — Sleep and Sleep Disorders.” Centers for Disease Control and Prevention, Centers for Disease Control and Prevention, 2 Mar. 2017,
+
+https://www.cdc.gov/sleep/about_sleep/how_much_sleep.html
+
+“The Dangers of Sitting: Why Sitting Is the New Smoking.” The Dangers of Sitting: Why Sitting Is the New Smoking — Better Health Channel, 22 Aug. 2020,
+
+https://www.betterhealth.vic.gov.au/health/healthyliving/the-dangers-of-sitting
+
+Gornall, Lucy. “How to Lose Weight: How Many Calories Should i Eat to Lose Weight?” GoodtoKnow, 12 Aug. 2020,
+
+https://www.goodto.com/wellbeing/diets-exercise/what-is-calorie-how-many-lose-weigt-425557
+
+Grey, Heather. “Heart Rates Can Vary by 70 Bpm: What That Means for Your Health.” Healthline, Healthline Media, 9 Feb. 2020,
+
+https://www.healthline.com/health-news/what-your-heart-rate-says-about-your-health
+
+“How Much Physical Activity Do Adults Need?” Centers for Disease Control and Prevention, Centers for Disease Control and Prevention, 7 Oct. 2020,
+
+https://www.cdc.gov/physicalactivity/basics/adults/index.htm
+
+Nield, David. “Scientists Figured out How Much Exercise You Need to ‘Offset’ a Day of Sitting.” ScienceAlert, 26 Nov. 2020,
+
+https://www.sciencealert.com/getting-a-sweat-on-for-30-40-minutes-could-offset-a-day-of-sitting-down
+
+Reed, Martin. “Spend Less Time In Bed If You Want More Sleep.” Healthcentral.com, 7 May 2017,
+
+https://www.healthcentral.com/article/spend-less-time-in-bed-if-you-want-more-sleep
+
+Roland, James. “What Are Mets, and How Are They Calculated?” Healthline, Healthline Media, 21 Oct. 2019, 
+
+https://www.healthline.com/health/what-are-mets#calculation
+
+
+
