@@ -237,55 +237,25 @@ pre code {
 # install.packages(&quot;here&quot;)
 # install.packages(&quot;skimr&quot;)
 # install.packages(&quot;janitor&quot;)
+# install.packages (&quot;RSQLite&quot;)
 # install.packages(&quot;sqldf&quot;)
-library(tidyverse)</code></pre>
-<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──</code></pre>
-<pre><code>## ✓ ggplot2 3.3.5     ✓ purrr   0.3.4
-## ✓ tibble  3.1.6     ✓ dplyr   1.0.7
-## ✓ tidyr   1.1.4     ✓ stringr 1.4.0
-## ✓ readr   2.1.1     ✓ forcats 0.5.1</code></pre>
-<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()</code></pre>
-<pre class="r"><code>library(lubridate)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;lubridate&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     date, intersect, setdiff, union</code></pre>
-<pre class="r"><code>library(dplyr)
+library(tidyverse)
+library(lubridate)
+library(dplyr)
 library(ggplot2)
 library(tidyr)
-library(here)</code></pre>
-<pre><code>## here() starts at /Users/minty/Developer/BellaBeat_casestudy</code></pre>
-<pre class="r"><code>library(skimr)
-library(janitor)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;janitor&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     chisq.test, fisher.test</code></pre>
-<pre class="r"><code>library(sqldf)</code></pre>
-<pre><code>## Loading required package: gsubfn</code></pre>
-<pre><code>## Loading required package: proto</code></pre>
-<pre><code>## Warning in doTryCatch(return(expr), name, parentenv, handler): unable to load shared object &#39;/Library/Frameworks/R.framework/Resources/modules//R_X11.so&#39;:
-##   dlopen(/Library/Frameworks/R.framework/Resources/modules//R_X11.so, 0x0006): Library not loaded: /opt/X11/lib/libSM.6.dylib
-##   Referenced from: /Library/Frameworks/R.framework/Versions/4.1/Resources/modules/R_X11.so
-##   Reason: tried: &#39;/opt/X11/lib/libSM.6.dylib&#39; (no such file), &#39;/Library/Frameworks/R.framework/Resources/lib/libSM.6.dylib&#39; (no such file), &#39;/Library/Java/JavaVirtualMachines/jdk1.8.0_241.jdk/Contents/Home/jre/lib/server/libSM.6.dylib&#39; (no such file)</code></pre>
-<pre><code>## Could not load tcltk.  Will use slower R code instead.</code></pre>
-<pre><code>## Loading required package: RSQLite</code></pre>
+library(here)
+library(skimr)
+library(janitor)
+library(RSQLite)
+library(sqldf)
+library(magrittr)
+library(knitr)</code></pre>
 <p>Now I import all the dataset on RStudio and use head(), colnames(), str() to quickly review the data</p>
 <pre class="r"><code>setwd(&quot;/Users/minty/Developer/Data_analysis_project&quot;)
-daily_activity &lt;- read_csv(&quot;dailyActivity_merged.csv&quot;)</code></pre>
-<pre><code>## Rows: 940 Columns: 15</code></pre>
-<pre><code>## ── Column specification ────────────────────────────────────────────────────────
-## Delimiter: &quot;,&quot;
-## chr  (1): ActivityDate
-## dbl (14): Id, TotalSteps, TotalDistance, TrackerDistance, LoggedActivitiesDi...</code></pre>
-<pre><code>## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<pre class="r"><code>head(daily_activity)</code></pre>
+daily_activity &lt;- read_csv(&quot;dailyActivity_merged.csv&quot;)
+
+head(daily_activity)</code></pre>
 <pre><code>## # A tibble: 6 × 15
 ##        Id ActivityDate TotalSteps TotalDistance TrackerDistance LoggedActivitie…
 ##     &lt;dbl&gt; &lt;chr&gt;             &lt;dbl&gt;         &lt;dbl&gt;           &lt;dbl&gt;            &lt;dbl&gt;
@@ -345,16 +315,9 @@ daily_activity &lt;- read_csv(&quot;dailyActivity_merged.csv&quot;)</code></pre>
 ##   ..   Calories = col_double()
 ##   .. )
 ##  - attr(*, &quot;problems&quot;)=&lt;externalptr&gt;</code></pre>
-<pre class="r"><code>daily_calories &lt;- read_csv(&quot;dailyCalories_merged.csv&quot;)</code></pre>
-<pre><code>## Rows: 940 Columns: 3</code></pre>
-<pre><code>## ── Column specification ────────────────────────────────────────────────────────
-## Delimiter: &quot;,&quot;
-## chr (1): ActivityDay
-## dbl (2): Id, Calories</code></pre>
-<pre><code>## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<pre class="r"><code>head(daily_calories)</code></pre>
+<pre class="r"><code>daily_calories &lt;- read_csv(&quot;dailyCalories_merged.csv&quot;)
+
+head(daily_calories)</code></pre>
 <pre><code>## # A tibble: 6 × 3
 ##           Id ActivityDay Calories
 ##        &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt;
@@ -366,16 +329,9 @@ daily_activity &lt;- read_csv(&quot;dailyActivity_merged.csv&quot;)</code></pre>
 ## 6 1503960366 4/17/2016       1728</code></pre>
 <pre class="r"><code>colnames(daily_calories)</code></pre>
 <pre><code>## [1] &quot;Id&quot;          &quot;ActivityDay&quot; &quot;Calories&quot;</code></pre>
-<pre class="r"><code>daily_intensities &lt;- read_csv(&quot;dailyIntensities_merged.csv&quot;)</code></pre>
-<pre><code>## Rows: 940 Columns: 10</code></pre>
-<pre><code>## ── Column specification ────────────────────────────────────────────────────────
-## Delimiter: &quot;,&quot;
-## chr (1): ActivityDay
-## dbl (9): Id, SedentaryMinutes, LightlyActiveMinutes, FairlyActiveMinutes, Ve...</code></pre>
-<pre><code>## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<pre class="r"><code>head(daily_intensities)</code></pre>
+<pre class="r"><code>daily_intensities &lt;- read_csv(&quot;dailyIntensities_merged.csv&quot;)
+
+head(daily_intensities)</code></pre>
 <pre><code>## # A tibble: 6 × 10
 ##           Id ActivityDay SedentaryMinutes LightlyActiveMinutes FairlyActiveMinu…
 ##        &lt;dbl&gt; &lt;chr&gt;                  &lt;dbl&gt;                &lt;dbl&gt;             &lt;dbl&gt;
@@ -394,16 +350,9 @@ daily_activity &lt;- read_csv(&quot;dailyActivity_merged.csv&quot;)</code></pre>
 ##  [5] &quot;FairlyActiveMinutes&quot;      &quot;VeryActiveMinutes&quot;       
 ##  [7] &quot;SedentaryActiveDistance&quot;  &quot;LightActiveDistance&quot;     
 ##  [9] &quot;ModeratelyActiveDistance&quot; &quot;VeryActiveDistance&quot;</code></pre>
-<pre class="r"><code>hourly_intensities &lt;- read_csv(&quot;hourlyIntensities_merged.csv&quot;)</code></pre>
-<pre><code>## Rows: 22099 Columns: 4</code></pre>
-<pre><code>## ── Column specification ────────────────────────────────────────────────────────
-## Delimiter: &quot;,&quot;
-## chr (1): ActivityHour
-## dbl (3): Id, TotalIntensity, AverageIntensity</code></pre>
-<pre><code>## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<pre class="r"><code>head(hourly_intensities)</code></pre>
+<pre class="r"><code>hourly_intensities &lt;- read_csv(&quot;hourlyIntensities_merged.csv&quot;)
+
+head(hourly_intensities)</code></pre>
 <pre><code>## # A tibble: 6 × 4
 ##           Id ActivityHour          TotalIntensity AverageIntensity
 ##        &lt;dbl&gt; &lt;chr&gt;                          &lt;dbl&gt;            &lt;dbl&gt;
@@ -415,16 +364,9 @@ daily_activity &lt;- read_csv(&quot;dailyActivity_merged.csv&quot;)</code></pre>
 ## 6 1503960366 4/12/2016 5:00:00 AM               0            0</code></pre>
 <pre class="r"><code>colnames(hourly_intensities)</code></pre>
 <pre><code>## [1] &quot;Id&quot;               &quot;ActivityHour&quot;     &quot;TotalIntensity&quot;   &quot;AverageIntensity&quot;</code></pre>
-<pre class="r"><code>daily_steps &lt;- read_csv(&quot;dailySteps_merged.csv&quot;)</code></pre>
-<pre><code>## Rows: 940 Columns: 3</code></pre>
-<pre><code>## ── Column specification ────────────────────────────────────────────────────────
-## Delimiter: &quot;,&quot;
-## chr (1): ActivityDay
-## dbl (2): Id, StepTotal</code></pre>
-<pre><code>## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<pre class="r"><code>head(daily_steps)</code></pre>
+<pre class="r"><code>daily_steps &lt;- read_csv(&quot;dailySteps_merged.csv&quot;)
+
+head(daily_steps)</code></pre>
 <pre><code>## # A tibble: 6 × 3
 ##           Id ActivityDay StepTotal
 ##        &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;
@@ -436,16 +378,9 @@ daily_activity &lt;- read_csv(&quot;dailyActivity_merged.csv&quot;)</code></pre>
 ## 6 1503960366 4/17/2016        9705</code></pre>
 <pre class="r"><code>colnames(daily_steps)</code></pre>
 <pre><code>## [1] &quot;Id&quot;          &quot;ActivityDay&quot; &quot;StepTotal&quot;</code></pre>
-<pre class="r"><code>heart_rate_sec &lt;- read_csv(&quot;heartrate_seconds_merged.csv&quot;)</code></pre>
-<pre><code>## Rows: 2483658 Columns: 3</code></pre>
-<pre><code>## ── Column specification ────────────────────────────────────────────────────────
-## Delimiter: &quot;,&quot;
-## chr (1): Time
-## dbl (2): Id, Value</code></pre>
-<pre><code>## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<pre class="r"><code>head(heart_rate_sec)</code></pre>
+<pre class="r"><code>heart_rate_sec &lt;- read_csv(&quot;heartrate_seconds_merged.csv&quot;)
+
+head(heart_rate_sec)</code></pre>
 <pre><code>## # A tibble: 6 × 3
 ##           Id Time                 Value
 ##        &lt;dbl&gt; &lt;chr&gt;                &lt;dbl&gt;
@@ -457,16 +392,9 @@ daily_activity &lt;- read_csv(&quot;dailyActivity_merged.csv&quot;)</code></pre>
 ## 6 2022484408 4/12/2016 7:22:05 AM    95</code></pre>
 <pre class="r"><code>colnames(heart_rate_sec)</code></pre>
 <pre><code>## [1] &quot;Id&quot;    &quot;Time&quot;  &quot;Value&quot;</code></pre>
-<pre class="r"><code>minute_METs &lt;- read_csv(&quot;minuteMETsNarrow_merged.csv&quot;)</code></pre>
-<pre><code>## Rows: 1325580 Columns: 3</code></pre>
-<pre><code>## ── Column specification ────────────────────────────────────────────────────────
-## Delimiter: &quot;,&quot;
-## chr (1): ActivityMinute
-## dbl (2): Id, METs</code></pre>
-<pre><code>## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<pre class="r"><code>head(minute_METs)</code></pre>
+<pre class="r"><code>minute_METs &lt;- read_csv(&quot;minuteMETsNarrow_merged.csv&quot;)
+
+head(minute_METs)</code></pre>
 <pre><code>## # A tibble: 6 × 3
 ##           Id ActivityMinute         METs
 ##        &lt;dbl&gt; &lt;chr&gt;                 &lt;dbl&gt;
@@ -498,17 +426,9 @@ head(sleep_day)</code></pre>
 <pre class="r"><code>colnames(sleep_day)</code></pre>
 <pre><code>## [1] &quot;Id&quot;                 &quot;SleepDay&quot;           &quot;TotalSleepRecords&quot; 
 ## [4] &quot;TotalMinutesAsleep&quot; &quot;TotalTimeInBed&quot;</code></pre>
-<pre class="r"><code>weight_log &lt;- read_csv(&quot;weightLogInfo_merged.csv&quot;)</code></pre>
-<pre><code>## Rows: 67 Columns: 8</code></pre>
-<pre><code>## ── Column specification ────────────────────────────────────────────────────────
-## Delimiter: &quot;,&quot;
-## chr (1): Date
-## dbl (6): Id, WeightKg, WeightPounds, Fat, BMI, LogId
-## lgl (1): IsManualReport</code></pre>
-<pre><code>## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<pre class="r"><code>head(weight_log)</code></pre>
+<pre class="r"><code>weight_log &lt;- read_csv(&quot;weightLogInfo_merged.csv&quot;)
+
+head(weight_log)</code></pre>
 <pre><code>## # A tibble: 6 × 8
 ##           Id Date      WeightKg WeightPounds   Fat   BMI IsManualReport    LogId
 ##        &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;        &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt;             &lt;dbl&gt;
@@ -540,6 +460,106 @@ weight_log$time &lt;- format(weight_log$Date, format = &quot;%H:%M:%S&quot;)
 hourly_intensities$ActivityHour=as.POSIXct(hourly_intensities$ActivityHour, format=&quot;%m/%d/%Y %I:%M:%S %p&quot;, tz=Sys.timezone())
 hourly_intensities$time &lt;- format(hourly_intensities$ActivityHour, format = &quot;%H:%M:%S&quot;)
 hourly_intensities$date &lt;- format(hourly_intensities$ActivityHour, format = &quot;%m/%d/%y&quot;)</code></pre>
+<p>The n_distinct() and nrow() functions are used to determine the number of unique values and the number of rows in a data frame, respectively.</p>
+<pre class="r"><code>n_distinct(daily_activity$Id)</code></pre>
+<pre><code>## [1] 33</code></pre>
+<pre class="r"><code>n_distinct(heart_rate_sec$Id)</code></pre>
+<pre><code>## [1] 14</code></pre>
+<pre class="r"><code>n_distinct(minute_METs$Id)</code></pre>
+<pre><code>## [1] 33</code></pre>
+<pre class="r"><code>n_distinct(sleep_day$Id)</code></pre>
+<pre><code>## [1] 24</code></pre>
+<pre class="r"><code>n_distinct(weight_log$Id)</code></pre>
+<pre><code>## [1] 8</code></pre>
+<pre class="r"><code>nrow(daily_activity)</code></pre>
+<pre><code>## [1] 940</code></pre>
+<pre class="r"><code>nrow(heart_rate_sec)</code></pre>
+<pre><code>## [1] 2483658</code></pre>
+<pre class="r"><code>nrow(minute_METs)</code></pre>
+<pre><code>## [1] 1325580</code></pre>
+<pre class="r"><code>nrow(sleep_day)</code></pre>
+<pre><code>## [1] 413</code></pre>
+<pre class="r"><code>nrow(weight_log)</code></pre>
+<pre><code>## [1] 67</code></pre>
+<p>The heart rate and weight log data frames contain a very low number of participants based on the n_distinct() outputs. Thus, reliable recommendations and conclusions cannot be made solely from these data frames.</p>
+<p>The summary() function is used to pull key statistics about the data frames.</p>
+<pre class="r"><code>daily_activity %&gt;%
+  select(TotalSteps,TotalDistance,SedentaryMinutes,LightlyActiveMinutes, FairlyActiveMinutes, VeryActiveMinutes,Calories)  %&gt;%
+  summary()</code></pre>
+<pre><code>##    TotalSteps    TotalDistance    SedentaryMinutes LightlyActiveMinutes
+##  Min.   :    0   Min.   : 0.000   Min.   :   0.0   Min.   :  0.0       
+##  1st Qu.: 3790   1st Qu.: 2.620   1st Qu.: 729.8   1st Qu.:127.0       
+##  Median : 7406   Median : 5.245   Median :1057.5   Median :199.0       
+##  Mean   : 7638   Mean   : 5.490   Mean   : 991.2   Mean   :192.8       
+##  3rd Qu.:10727   3rd Qu.: 7.713   3rd Qu.:1229.5   3rd Qu.:264.0       
+##  Max.   :36019   Max.   :28.030   Max.   :1440.0   Max.   :518.0       
+##  FairlyActiveMinutes VeryActiveMinutes    Calories   
+##  Min.   :  0.00      Min.   :  0.00    Min.   :   0  
+##  1st Qu.:  0.00      1st Qu.:  0.00    1st Qu.:1828  
+##  Median :  6.00      Median :  4.00    Median :2134  
+##  Mean   : 13.56      Mean   : 21.16    Mean   :2304  
+##  3rd Qu.: 19.00      3rd Qu.: 32.00    3rd Qu.:2793  
+##  Max.   :143.00      Max.   :210.00    Max.   :4900</code></pre>
+<pre class="r"><code>daily_activity_2 &lt;- daily_activity %&gt;% 
+  select(Id, ActivityDate, Calories)
+head(daily_activity_2)</code></pre>
+<pre><code>## # A tibble: 6 × 3
+##           Id ActivityDate        Calories
+##        &lt;dbl&gt; &lt;dttm&gt;                 &lt;dbl&gt;
+## 1 1503960366 2016-04-12 00:00:00     1985
+## 2 1503960366 2016-04-13 00:00:00     1797
+## 3 1503960366 2016-04-14 00:00:00     1776
+## 4 1503960366 2016-04-15 00:00:00     1745
+## 5 1503960366 2016-04-16 00:00:00     1863
+## 6 1503960366 2016-04-17 00:00:00     1728</code></pre>
+<pre class="r"><code>sql_check &lt;- sqldf(&#39;SELECT * FROM daily_activity_2 INTERSECT SELECT * FROM daily_calories&#39;)
+head(sql_check)</code></pre>
+<pre><code>## [1] Id           ActivityDate Calories    
+## &lt;0 rows&gt; (or 0-length row.names)</code></pre>
+<pre class="r"><code>nrow(sql_check)</code></pre>
+<pre><code>## [1] 0</code></pre>
+<pre class="r"><code>daily_activity_3 &lt;- daily_activity %&gt;% 
+  select(Id,ActivityDate,SedentaryMinutes, LightlyActiveMinutes,FairlyActiveMinutes, VeryActiveMinutes,SedentaryActiveDistance,LightActiveDistance,ModeratelyActiveDistance, VeryActiveDistance)
+head (daily_activity_3)</code></pre>
+<pre><code>## # A tibble: 6 × 10
+##        Id ActivityDate        SedentaryMinutes LightlyActiveMi… FairlyActiveMin…
+##     &lt;dbl&gt; &lt;dttm&gt;                         &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+## 1  1.50e9 2016-04-12 00:00:00              728              328               13
+## 2  1.50e9 2016-04-13 00:00:00              776              217               19
+## 3  1.50e9 2016-04-14 00:00:00             1218              181               11
+## 4  1.50e9 2016-04-15 00:00:00              726              209               34
+## 5  1.50e9 2016-04-16 00:00:00              773              221               10
+## 6  1.50e9 2016-04-17 00:00:00              539              164               20
+## # … with 5 more variables: VeryActiveMinutes &lt;dbl&gt;,
+## #   SedentaryActiveDistance &lt;dbl&gt;, LightActiveDistance &lt;dbl&gt;,
+## #   ModeratelyActiveDistance &lt;dbl&gt;, VeryActiveDistance &lt;dbl&gt;</code></pre>
+<pre class="r"><code>sql_check_2 &lt;-sqldf(&#39;SELECT * FROM daily_activity_3 INTERSECT SELECT * FROM daily_intensities&#39;)
+head(sql_check_2)</code></pre>
+<pre><code>##  [1] Id                       ActivityDate             SedentaryMinutes        
+##  [4] LightlyActiveMinutes     FairlyActiveMinutes      VeryActiveMinutes       
+##  [7] SedentaryActiveDistance  LightActiveDistance      ModeratelyActiveDistance
+## [10] VeryActiveDistance      
+## &lt;0 rows&gt; (or 0-length row.names)</code></pre>
+<pre class="r"><code>nrow(sql_check_2)</code></pre>
+<pre><code>## [1] 0</code></pre>
+<pre class="r"><code>daily_activity_4 &lt;- daily_activity %&gt;% 
+  select(Id, ActivityDate, TotalSteps)
+head(daily_activity_4)</code></pre>
+<pre><code>## # A tibble: 6 × 3
+##           Id ActivityDate        TotalSteps
+##        &lt;dbl&gt; &lt;dttm&gt;                   &lt;dbl&gt;
+## 1 1503960366 2016-04-12 00:00:00      13162
+## 2 1503960366 2016-04-13 00:00:00      10735
+## 3 1503960366 2016-04-14 00:00:00      10460
+## 4 1503960366 2016-04-15 00:00:00       9762
+## 5 1503960366 2016-04-16 00:00:00      12669
+## 6 1503960366 2016-04-17 00:00:00       9705</code></pre>
+<pre class="r"><code>sql_check_3 &lt;- sqldf(&#39;SELECT * FROM daily_activity_4 INTERSECT SELECT * FROM daily_steps&#39;)
+head(sql_check_3)</code></pre>
+<pre><code>## [1] Id           ActivityDate TotalSteps  
+## &lt;0 rows&gt; (or 0-length row.names)</code></pre>
+<pre class="r"><code>nrow(sql_check_3)</code></pre>
+<pre><code>## [1] 0</code></pre>
 </div>
 
 
