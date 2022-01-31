@@ -277,8 +277,77 @@ ggplot(data=sleep_day,aes(x=TotalMinutesAsleep, y=TotalTimeInBed)) + geom_point(
 Figure 3 depicts a positive relationship between total minutes asleep and total time in bed. For the most part, the time participants spent asleep and the time they spent in bed was very similar.
 
 ```{r}
+d_activity_hr_intensities <- merge(daily_activity, hourly_intensities, by=c('Id','date'))
+glimpse(d_activity_hr_intensities)
 
+# Create new df with average intensity, grouped by the time, and na values dropped
+hourly_intensity <- d_activity_hr_intensities %>%
+  group_by(time) %>%
+  drop_na() %>%
+  summarise(mean_total_int = mean(TotalIntensity))
+
+# Plot relationship between average intensity and time of day
+bar_intensity <- ggplot(data=hourly_intensity, aes(x=time, y=mean_total_int)) + 
+  geom_bar(stat = "identity", fill='#66b2b2') +
+  theme(axis.text.x = element_text(angle = 90)) +
+  labs(title="Average Total Intensity vs. Time", y="Average Intensity", x="Time of Day")
+
+# Merge daily activity and weight log by id and date, and save as new df
+weight_bmi <- merge(daily_activity, weight_log, by=c('Id', 'date'))
+weight_bmi <- weight_bmi %>% select(-c("IsManualReport","LogId","WeightKg"))
+glimpse(weight_bmi)
+
+# Create new df with average weight in pounds, average BMI, grouped by id, and na values dropped
+avg_weight_bmi <- weight_bmi %>%
+  group_by(Id) %>%
+  summarise (mean_weight = mean(WeightPounds), 
+             mean_bmi = mean(BMI))
+
+head(avg_weight_bmi)
+max(weight_bmi$BMI)
+min(weight_bmi$BMI)
+
+# Create new df and classify weight type by BMI
+bmi_health_table <- avg_weight_bmi %>%
+  mutate(bmi_health = case_when(
+    mean_bmi < 18.5 ~ "Underweight",
+    mean_bmi >= 18.5 & mean_bmi < 24.9 ~ "Normal Weight", 
+    mean_bmi >= 25 & mean_bmi < 29.9 ~ "Overweight", 
+    mean_bmi >= 30 ~ "Obese"
+  ))
+
+# Create new df with percentage of each type of weight type
+pct_bmi_health <- bmi_health_table %>%
+  group_by(bmi_health) %>%
+  summarise(total = n()) %>%
+  mutate(totals = sum(total)) %>%
+  group_by(bmi_health) %>%
+  summarise(total_percent = scales::percent(total / totals))
+
+# Create vector for each weight type
+pct_bmi_health$bmi_health <- factor(pct_bmi_health$bmi_health , levels = c("Obese", "Overweight", "Normal Weight", "Underweight"))
+
+# Plot pie chart of percentage distribution of weight type
+pie_pbh <- pct_bmi_health %>%
+  ggplot(aes(x="",y=total_percent, fill=bmi_health)) +
+  geom_bar(stat = "identity", width = 1)+
+  coord_polar("y", start=0)+
+  theme_minimal()+
+  theme(axis.title.x= element_blank(),
+        axis.title.y = element_blank(),
+        panel.border = element_blank(), 
+        panel.grid = element_blank(), 
+        axis.ticks = element_blank(),
+        axis.text.x = element_blank(),
+        plot.title = element_text(hjust = 0.5, size=14, face = "bold")) +
+  scale_fill_manual(values = c("#8173bd","#ffa600","#009d9f"),
+                    labels = c("Obese", "Overweight", "Normal Weight", "Underweight")) +
+  geom_text(aes(label = total_percent),color="white",
+            position = position_stack(vjust = 0.5))+
+  labs(title="Weight type distribution")
+  plot(pie_pbh)
 ```
+This pie chart shows us that half of the participants were overweight. 
 ```{r}
 
 ```
