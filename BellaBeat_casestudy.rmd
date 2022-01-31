@@ -254,9 +254,37 @@ weight_log %>%
 ```
 While this data frame has a low number of participants, the average BMI is 25.19. This is considered an overweight BMI. However, BMI can be a screening tool and does not diagnose the body fatness or health of an individual.
 
+## Share
+The ggplot() function of R Studio was used to create data visualizations that depict patterns and trends found in the data frames.
+
 ```{r }
+ggplot(data=daily_activity,aes(x=VeryActiveMinutes, y=Calories)) + geom_point()+ stat_smooth(method = lm) +labs(title="The Relationship between Very Active Minutes and Total Daily Calories Burned")
+```
+
+Figure 1 depicts a positive relationship between very active minutes and total daily calories burned. This means that the more vigorous physical activity the participant did, the more calories they burned.
+
+```{r }
+ggplot(data=daily_activity,aes(x=TotalSteps, y=Calories)) + geom_point() + stat_smooth(method = lm) + labs(title = "The Relationship between the Total Daily Steps and Total Daily Calries Burned")
 
 ```
-```{r }
+
+Figure 2 displays a positive relationship between total daily steps taken and total calories burned. This means the more steps the Fitbit users took, the more calories they burned.
+
+```{r}
+ggplot(data=sleep_day,aes(x=TotalMinutesAsleep, y=TotalTimeInBed)) + geom_point() + stat_smooth(method = lm) + labs(title ="The Relationship between Total Minutes Asleep and Total Time in Bed")
+```
+
+Figure 3 depicts a positive relationship between total minutes asleep and total time in bed. For the most part, the time participants spent asleep and the time they spent in bed was very similar.
+
+```{r}
+
+```
+```{r}
+
+```
+```{r}
+
+```
+```{r}
 
 ```
