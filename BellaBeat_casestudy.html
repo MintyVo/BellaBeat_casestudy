@@ -460,6 +460,9 @@ weight_log$time &lt;- format(weight_log$Date, format = &quot;%H:%M:%S&quot;)
 hourly_intensities$ActivityHour=as.POSIXct(hourly_intensities$ActivityHour, format=&quot;%m/%d/%Y %I:%M:%S %p&quot;, tz=Sys.timezone())
 hourly_intensities$time &lt;- format(hourly_intensities$ActivityHour, format = &quot;%H:%M:%S&quot;)
 hourly_intensities$date &lt;- format(hourly_intensities$ActivityHour, format = &quot;%m/%d/%y&quot;)</code></pre>
+</div>
+<div id="analyze" class="section level2">
+<h2>Analyze</h2>
 <p>The n_distinct() and nrow() functions are used to determine the number of unique values and the number of rows in a data frame, respectively.</p>
 <pre class="r"><code>n_distinct(daily_activity$Id)</code></pre>
 <pre><code>## [1] 33</code></pre>
@@ -500,66 +503,51 @@ hourly_intensities$date &lt;- format(hourly_intensities$ActivityHour, format = &
 ##  Mean   : 13.56      Mean   : 21.16    Mean   :2304  
 ##  3rd Qu.: 19.00      3rd Qu.: 32.00    3rd Qu.:2793  
 ##  Max.   :143.00      Max.   :210.00    Max.   :4900</code></pre>
-<pre class="r"><code>daily_activity_2 &lt;- daily_activity %&gt;% 
-  select(Id, ActivityDate, Calories)
-head(daily_activity_2)</code></pre>
-<pre><code>## # A tibble: 6 × 3
-##           Id ActivityDate        Calories
-##        &lt;dbl&gt; &lt;dttm&gt;                 &lt;dbl&gt;
-## 1 1503960366 2016-04-12 00:00:00     1985
-## 2 1503960366 2016-04-13 00:00:00     1797
-## 3 1503960366 2016-04-14 00:00:00     1776
-## 4 1503960366 2016-04-15 00:00:00     1745
-## 5 1503960366 2016-04-16 00:00:00     1863
-## 6 1503960366 2016-04-17 00:00:00     1728</code></pre>
-<pre class="r"><code>sql_check &lt;- sqldf(&#39;SELECT * FROM daily_activity_2 INTERSECT SELECT * FROM daily_calories&#39;)
-head(sql_check)</code></pre>
-<pre><code>## [1] Id           ActivityDate Calories    
-## &lt;0 rows&gt; (or 0-length row.names)</code></pre>
-<pre class="r"><code>nrow(sql_check)</code></pre>
-<pre><code>## [1] 0</code></pre>
-<pre class="r"><code>daily_activity_3 &lt;- daily_activity %&gt;% 
-  select(Id,ActivityDate,SedentaryMinutes, LightlyActiveMinutes,FairlyActiveMinutes, VeryActiveMinutes,SedentaryActiveDistance,LightActiveDistance,ModeratelyActiveDistance, VeryActiveDistance)
-head (daily_activity_3)</code></pre>
-<pre><code>## # A tibble: 6 × 10
-##        Id ActivityDate        SedentaryMinutes LightlyActiveMi… FairlyActiveMin…
-##     &lt;dbl&gt; &lt;dttm&gt;                         &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
-## 1  1.50e9 2016-04-12 00:00:00              728              328               13
-## 2  1.50e9 2016-04-13 00:00:00              776              217               19
-## 3  1.50e9 2016-04-14 00:00:00             1218              181               11
-## 4  1.50e9 2016-04-15 00:00:00              726              209               34
-## 5  1.50e9 2016-04-16 00:00:00              773              221               10
-## 6  1.50e9 2016-04-17 00:00:00              539              164               20
-## # … with 5 more variables: VeryActiveMinutes &lt;dbl&gt;,
-## #   SedentaryActiveDistance &lt;dbl&gt;, LightActiveDistance &lt;dbl&gt;,
-## #   ModeratelyActiveDistance &lt;dbl&gt;, VeryActiveDistance &lt;dbl&gt;</code></pre>
-<pre class="r"><code>sql_check_2 &lt;-sqldf(&#39;SELECT * FROM daily_activity_3 INTERSECT SELECT * FROM daily_intensities&#39;)
-head(sql_check_2)</code></pre>
-<pre><code>##  [1] Id                       ActivityDate             SedentaryMinutes        
-##  [4] LightlyActiveMinutes     FairlyActiveMinutes      VeryActiveMinutes       
-##  [7] SedentaryActiveDistance  LightActiveDistance      ModeratelyActiveDistance
-## [10] VeryActiveDistance      
-## &lt;0 rows&gt; (or 0-length row.names)</code></pre>
-<pre class="r"><code>nrow(sql_check_2)</code></pre>
-<pre><code>## [1] 0</code></pre>
-<pre class="r"><code>daily_activity_4 &lt;- daily_activity %&gt;% 
-  select(Id, ActivityDate, TotalSteps)
-head(daily_activity_4)</code></pre>
-<pre><code>## # A tibble: 6 × 3
-##           Id ActivityDate        TotalSteps
-##        &lt;dbl&gt; &lt;dttm&gt;                   &lt;dbl&gt;
-## 1 1503960366 2016-04-12 00:00:00      13162
-## 2 1503960366 2016-04-13 00:00:00      10735
-## 3 1503960366 2016-04-14 00:00:00      10460
-## 4 1503960366 2016-04-15 00:00:00       9762
-## 5 1503960366 2016-04-16 00:00:00      12669
-## 6 1503960366 2016-04-17 00:00:00       9705</code></pre>
-<pre class="r"><code>sql_check_3 &lt;- sqldf(&#39;SELECT * FROM daily_activity_4 INTERSECT SELECT * FROM daily_steps&#39;)
-head(sql_check_3)</code></pre>
-<pre><code>## [1] Id           ActivityDate TotalSteps  
-## &lt;0 rows&gt; (or 0-length row.names)</code></pre>
-<pre class="r"><code>nrow(sql_check_3)</code></pre>
-<pre><code>## [1] 0</code></pre>
+<p>This summary shows the average user is taking 7638 steps a day, missing the recommended 10,000 steps for health by the CDC. On average, users are getting 21.16 minutes of very active or vigorous activity a day, this equates to 148.12 minutes a week. The CDC recommends 75 minutes of vigorous activity a week, so the typical Fitbit user is doing well in this area and achieving additional health benefits. In contrast, participants are averaging 991.2 minutes, or 16.52 hours of sedentary time a day! This is a significant amount of time and can lead to other health issues because the body functions best upright. Scientists have determined that 40 minutes of moderate to vigorous activity a day will balance out the effects of sitting up to 10 hours a day. Furthermore, this summary shows the average user is burning 2304 calories a day. Studies show the average person in the population burns 1800 calories a day, but burning 3500 is needed to lose a pound of weight. The Fitbit users in this case are burning more than the norm, and are on track to lose a few pounds a week if they so choose.</p>
+<pre class="r"><code>heart_rate_sec %&gt;%
+  select(Value) %&gt;%
+  summary()</code></pre>
+<pre><code>##      Value       
+##  Min.   : 36.00  
+##  1st Qu.: 63.00  
+##  Median : 73.00  
+##  Mean   : 77.33  
+##  3rd Qu.: 88.00  
+##  Max.   :203.00</code></pre>
+<p>Despite the low number of users in the heart rate data frame, the average heart rate of 77 beats per minute (bpm) fits within the “normal” range. Normal is considered to be between 50 to 80 bpm for men, and 53 to 82 bpm for women. However, research suggests that it is more important for individuals to determine what is a normal and healthy heart rate for them, and not compare to population levels. This is because resting heart rates between different people can vary by as much as 70 bpm. Changes in resting heartrate over days can be a sign of infection, menstrual cycle effects, or other acute triggers. Thus, making heartrate a vital health characteristic to monitor.</p>
+<pre class="r"><code>minute_METs %&gt;%
+  select(METs) %&gt;%
+summary()</code></pre>
+<pre><code>##       METs       
+##  Min.   :  0.00  
+##  1st Qu.: 10.00  
+##  Median : 10.00  
+##  Mean   : 14.69  
+##  3rd Qu.: 11.00  
+##  Max.   :157.00</code></pre>
+<p>The summary of minute METs shows the average user has a MET of 14.47. A MET is the ratio of your working metabolic rate relative to your resting metabolic rate. One MET is the energy you use when at rest. This means an activity with a MET of four, would require a person to exert four times the energy they do when they are sitting. Therefore, a user averaging 14.47 MET throughout the day is considerably high, which leads to the assumption that the Fitbit is not calculating this data point correctly. Due to this, the minute MET data frame will not be used further in this analysis.</p>
+<pre class="r"><code>sleep_day %&gt;%
+  select(TotalSleepRecords, TotalMinutesAsleep, TotalTimeInBed) %&gt;% 
+  summary()</code></pre>
+<pre><code>##  TotalSleepRecords TotalMinutesAsleep TotalTimeInBed 
+##  Min.   :1.000     Min.   : 58.0      Min.   : 61.0  
+##  1st Qu.:1.000     1st Qu.:361.0      1st Qu.:403.0  
+##  Median :1.000     Median :433.0      Median :463.0  
+##  Mean   :1.119     Mean   :419.5      Mean   :458.6  
+##  3rd Qu.:1.000     3rd Qu.:490.0      3rd Qu.:526.0  
+##  Max.   :3.000     Max.   :796.0      Max.   :961.0</code></pre>
+<p>The summary of the sleep data frame displays the average user sleeps once per day for 419.5 minutes, or roughly 7 hours. This falls within the CDC’s recommendations for adults in order to get the proper amount of rest. The average participant is spending 458.6 minutes in bed, or 7.64 hours. This means the typical user is spending 38.6 minutes awake in bed. According to Health Central, people should not spend more than 1 hour in bed awake. This is to prevent a mental link being formed between being awake and being in bed, which can lead to insomnia.</p>
+<pre class="r"><code>weight_log %&gt;% 
+  select(WeightPounds,BMI) %&gt;% 
+  summary()</code></pre>
+<pre><code>##   WeightPounds        BMI       
+##  Min.   :116.0   Min.   :21.45  
+##  1st Qu.:135.4   1st Qu.:23.96  
+##  Median :137.8   Median :24.39  
+##  Mean   :158.8   Mean   :25.19  
+##  3rd Qu.:187.5   3rd Qu.:25.56  
+##  Max.   :294.3   Max.   :47.54</code></pre>
+<p>While this data frame has a low number of participants, the average BMI is 25.19. This is considered an overweight BMI. However, BMI can be a screening tool and does not diagnose the body fatness or health of an individual.</p>
 </div>
 
 

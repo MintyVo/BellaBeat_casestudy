@@ -190,6 +190,7 @@ hourly_intensities$date <- format(hourly_intensities$ActivityHour, format = "%m/
 
 ```
 
+## Analyze
 The n_distinct() and nrow() functions are used to determine the number of unique values and the number of rows in a data frame, respectively.
 
 
@@ -226,11 +227,33 @@ This summary shows the average user is taking 7638 steps a day, missing the reco
 
 
 ```{r }
-
+heart_rate_sec %>%
+  select(Value) %>%
+  summary()
 ```
+Despite the low number of users in the heart rate data frame, the average heart rate of 77 beats per minute (bpm) fits within the “normal” range. Normal is considered to be between 50 to 80 bpm for men, and 53 to 82 bpm for women. However, research suggests that it is more important for individuals to determine what is a normal and healthy heart rate for them, and not compare to population levels. This is because resting heart rates between different people can vary by as much as 70 bpm. Changes in resting heartrate over days can be a sign of infection, menstrual cycle effects, or other acute triggers. Thus, making heartrate a vital health characteristic to monitor.
 ```{r }
-
+minute_METs %>%
+  select(METs) %>%
+summary()
 ```
+The summary of minute METs shows the average user has a MET of 14.47. A MET is the ratio of your working metabolic rate relative to your resting metabolic rate. One MET is the energy you use when at rest. This means an activity with a MET of four, would require a person to exert four times the energy they do when they are sitting. Therefore, a user averaging 14.47 MET throughout the day is considerably high, which leads to the assumption that the Fitbit is not calculating this data point correctly. Due to this, the minute MET data frame will not be used further in this analysis.
+
+```{r }
+sleep_day %>%
+  select(TotalSleepRecords, TotalMinutesAsleep, TotalTimeInBed) %>% 
+  summary()
+```
+The summary of the sleep data frame displays the average user sleeps once per day for 419.5 minutes, or roughly 7 hours. This falls within the CDC’s recommendations for adults in order to get the proper amount of rest. The average participant is spending 458.6 minutes in bed, or 7.64 hours. This means the typical user is spending 38.6 minutes awake in bed. According to Health Central, people should not spend more than 1 hour in bed awake. This is to prevent a mental link being formed between being awake and being in bed, which can lead to insomnia.
+
+
+```{r }
+weight_log %>% 
+  select(WeightPounds,BMI) %>% 
+  summary()
+```
+While this data frame has a low number of participants, the average BMI is 25.19. This is considered an overweight BMI. However, BMI can be a screening tool and does not diagnose the body fatness or health of an individual.
+
 ```{r }
 
 ```
